@@ -1,0 +1,26 @@
+__pycache__/
+*.py[cod]
+.Python
+
+.venv/
+venv/
+env/
+
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+*.tmp
+*.temp
+*.log
+*.csv
+
+# Von den Schachtelungsskripten erzeugt
+Schachtel Bilder*/
+Schachtel Ergebnis*.csv
+Schachtel Ergebnis*.md
+Schachtel Kontrolle*.html
+Schachtel Kontrolle*.pdf
+Platten unter Mindeststaerke*.csv
+Materialliste Bestellung*.xlsx
+*.zip
