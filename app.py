@@ -15,6 +15,7 @@ from threading import Event
 
 import streamlit as st
 
+import exportar_html_a_pdf as pdf_export
 import SchachtelnScript as schachtel
 
 
@@ -332,6 +333,25 @@ def ausgaben_zippen(ausgabe_dir: Path, projektname: str, konfiguration: str) -> 
     return buffer.getvalue()
 
 
+def pdf_kontrolle_erzeugen(ausgabe_dir: Path) -> Path:
+    html_pfad = ausgabe_dir / "Schachtel Kontrolle.html"
+    pdf_pfad = ausgabe_dir / "Schachtel Kontrolle.pdf"
+    try:
+        browser = pdf_export.buscar_browser(None)
+        return pdf_export.exportar_pdf(
+            browser=browser,
+            html_original=html_pfad,
+            pdf_salida=pdf_pfad,
+            formato="A3",
+            orientacion="landscape",
+            mostrar_detalles=False,
+            timeout=300,
+            mantener_temporal=False,
+        )
+    except SystemExit as exc:
+        raise RuntimeError(f"PDF konnte nicht erzeugt werden: {exc}") from exc
+
+
 def schachtelung_berechnen(
     pruefung: CSVPruefung,
     original_dateiname: str,
@@ -367,6 +387,11 @@ def schachtelung_berechnen(
             progress_callback=progress_callback,
             gruppen_tafelkonfiguration=gruppen_tafelkonfiguration,
         )
+        if progress_callback is not None:
+            progress_callback({"phase": "ausgabe", "percent": 0.995, "message": "PDF wird erzeugt..."})
+        pdf_kontrolle_erzeugen(ausgabe_dir)
+        if progress_callback is not None:
+            progress_callback({"phase": "ausgabe", "percent": 0.998, "message": "ZIP-Datei wird erzeugt..."})
         konfiguration = konfiguration_text(
             projektname=projektname,
             original_dateiname=original_dateiname,

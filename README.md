@@ -12,6 +12,8 @@ python -m venv .venv
 .venv/bin/streamlit run app.py
 ```
 
+Für den PDF-Export muss lokal Chrome oder Chromium installiert sein. Auf Streamlit Community Cloud wird Chromium über `packages.txt` installiert.
+
 ## Deployment auf Streamlit Community Cloud
 
 Dieses Repository ist fuer Streamlit Community Cloud vorbereitet.
@@ -27,6 +29,7 @@ Wichtige Dateien:
 - `app.py`: Streamlit-Web-App.
 - `SchachtelnScript.py`: Schachtellogik und Ergebnisexport.
 - `requirements.txt`: Python-Abhängigkeiten fuer Streamlit Cloud.
+- `packages.txt`: Systemabhängigkeiten fuer Streamlit Cloud, aktuell Chromium fuer den PDF-Export.
 - `.streamlit/config.toml`: Streamlit-Konfiguration.
 
 CSV-Dateien werden standardmäßig per `.gitignore` ignoriert, damit keine Projekt- oder Produktionsdaten ins Repository committed werden.
@@ -70,5 +73,6 @@ Der ZIP-Download enthält:
 - `Platten unter Mindeststaerke.csv`
 - `Materialliste Bestellung.xlsx`
 - `Schachtel Kontrolle.html`
+- `Schachtel Kontrolle.pdf`
 - `Schachtel Bilder/`
 - `Konfiguration.txt`
